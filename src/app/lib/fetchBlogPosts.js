@@ -1,9 +1,19 @@
 "use server"
 
 import config from "@/app/config";
+let url = 'https://blog-websites.bchat.lat/api/articles?populate=*';
+
+if(config.deploy_dev == 1){
+    url = 'https://blog-websites.bchat.lat/api/articles?populate=*&status=draft';
+}
+
+
 
 async function fetchBlogPosts() {
-    const res = await fetch('https://blog-websites.bchat.lat/api/articles?populate=*', {
+    console.log(url);
+
+
+    const res = await fetch(url, {
         headers: {
             'Authorization': `Bearer ${config.stripe_api_key}`,
         },
